@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="翻译,React," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="【译】你可能不需要派生状态 原文链接 You Probably Don’t Need Derived State  ​      React 16.4包含了getDerivedStateFromProps的bug，这个 bug 会在 React components 复现一些已知的 bug。如果这个版本导致出现的问题，导致您在修复过之后还已知出现的话，我们非常抱歉。在这篇文章中，我们将解释一些常见">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你可能不需要派生状态">
+<meta property="og:url" content="http://yoursite.com/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E6%B4%BE%E7%94%9F%E7%8A%B6%E6%80%81/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E6%B4%BE%E7%94%9F%E7%8A%B6%E6%80%81/">
+<meta property="og:site_name" content="Mars">
+<meta property="og:description" content="【译】你可能不需要派生状态 原文链接 You Probably Don’t Need Derived State  ​      React 16.4包含了getDerivedStateFromProps的bug，这个 bug 会在 React components 复现一些已知的 bug。如果这个版本导致出现的问题，导致您在修复过之后还已知出现的话，我们非常抱歉。在这篇文章中，我们将解释一些常见">
+<meta property="article:published_time" content="2020-01-25T12:57:33.000Z">
+<meta property="article:modified_time" content="2020-01-25T13:04:39.930Z">
+<meta property="article:author" content="Mars">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="React">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/你可能不需要派生状态/你可能不需要派生状态/"/>
+
+
+
+
+
+  <title>你可能不需要派生状态 | Mars</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mars</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E6%B4%BE%E7%94%9F%E7%8A%B6%E6%80%81/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E6%B4%BE%E7%94%9F%E7%8A%B6%E6%80%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">你可能不需要派生状态</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-25T20:57:33+08:00">
+                2020-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BF%BB%E8%AF%91/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="【译】你可能不需要派生状态"><a href="#【译】你可能不需要派生状态" class="headerlink" title="【译】你可能不需要派生状态"></a>【译】你可能不需要派生状态</h3><blockquote>
+<p>原文链接 <a href="https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key" target="_blank" rel="noopener">You Probably Don’t Need Derived State</a></p>
+</blockquote>
+<p>​      React 16.4包含了<a href="https://react.docschina.org/blog/2018/05/23/react-v-16-4.html#bugfix-for-getderivedstatefromprops" target="_blank" rel="noopener">getDerivedStateFromProps的</a><a href="https://react.docschina.org/blog/2018/05/23/react-v-16-4.html#bugfix-for-getderivedstatefromprops" target="_blank" rel="noopener">bug，</a>这个 bug 会在 React components 复现一些已知的 bug。如果这个版本导致出现的问题，导致您在修复过之后还已知出现的话，我们非常抱歉。在这篇文章中，我们将解释一些常见的反模式与派生状态和我们的首选替代方案。</p>
+<p>​      很长一段时间，生命周期componentWillReceiveProps是更新状态以响应props改变没有额外渲染的的唯一方法。在版本16.3中，<a href="https://react.docschina.org/blog/2018/03/29/react-v-16-3.html#component-lifecycle-changes" target="_blank" rel="noopener">我们引入了替换生命周期，<code>getDerivedStateFromProps</code></a>以更安全的方式解决相同的情况。与此同时，我们意识到人们对如何使用这两种方法存在许多误解，并且我们发现反模式会导致细微而混乱的错误。getDerivedStateFromProps在16.4中的错误修正<a href="https://github.com/facebook/react/issues/12898" target="_blank" rel="noopener">使得派生状态更具可预测性</a>，因此滥用它的结果更容易被注意到</p>
+<a id="more"></a>
+
+<blockquote>
+<p>注意</p>
+<p>本文中描述的所有反模式都适用于较旧版本<code>componentWillReceiveProps</code>和较新版本<code>getDerivedStateFromProps</code>。</p>
+</blockquote>
+<p>此博客文章将涵盖以下主题：</p>
+<ul>
+<li><a href="https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#when-to-use-derived-state" target="_blank" rel="noopener">何时使用派生状态</a></li>
+<li><a href="https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#common-bugs-when-using-derived-state" target="_blank" rel="noopener">使用派生状态时常见的bug</a><ul>
+<li><a href="https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#anti-pattern-unconditionally-copying-props-to-state" target="_blank" rel="noopener">反模式：直接复制props到state上</a></li>
+<li><a href="https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#anti-pattern-erasing-state-when-props-change" target="_blank" rel="noopener">反模式：props改变时修改state</a></li>
+</ul>
+</li>
+<li><a href="https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#preferred-solutions" target="_blank" rel="noopener">建议 的方案</a></li>
+<li><a href="https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization" target="_blank" rel="noopener">尝试一下 memoization？</a></li>
+</ul>
+<h4 id="何时使用派生状态"><a href="#何时使用派生状态" class="headerlink" title="何时使用派生状态"></a>何时使用派生状态</h4><p><code>getDerivedStateFromProps</code>的存在只有一个目的，让组件props 变化时更新state。上一个bug展示了一些实例，比如props 的offset变化时修改当前的滚动方向和根据props变化加载外部数据。</p>
+<p>我们没有提供很多示例，应为有<strong>保守使用派生state</strong> 这个规则。大部分使用派生 state 导致的问题，不外乎两个原因：1，直接复制 props 到 state 上；2，如果 props 和 state 不一致就更新 state。下面的示例包含了这两种情况。</p>
+<ul>
+<li>如果你只是为了缓存（memoize）基于当前 props 计算后的结果的话，你就没必要使用派生 state。。<a href="https://zh-hans.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization" target="_blank" rel="noopener">尝试一下 memoization？</a></li>
+<li>如果只是用来保存 props 或者和当前 state 比较之后不一致后更新 state，那你的组件应该是太频繁的更新了 state。请继续阅读。</li>
+</ul>
+<h4 id="派生-state-的常见-bug"><a href="#派生-state-的常见-bug" class="headerlink" title="派生 state 的常见 bug"></a>派生 state 的常见 bug</h4><p>   名词<a href="https://zh-hans.reactjs.org/docs/forms.html#controlled-components" target="_blank" rel="noopener">“受控”</a>和<a href="https://zh-hans.reactjs.org/docs/uncontrolled-components.html" target="_blank" rel="noopener">“非受控”</a>通常用来指代表单的 inputs，但是也可以用来描述数据频繁更新的组件。用 props 传入数据的话，组件可以被认为是<strong>受控</strong>（因为组件被父级传入的 props 控制）。数据只保存在组件内部的 state 的话，是<strong>非受控</strong>组件（因为外部没办法直接控制 state）。</p>
+<p>   常见的错误就是把两者混为一谈。当一个派生 state 值也被 <code>setState</code>  方法更新时，这个值就不是一个单一来源的值了。<a href="https://zh-hans.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#fetching-external-data-when-props-change" target="_blank" rel="noopener">加载外部数据示例</a>描述的行为和这个类似，但是有很重要的区别。在加载外部数据示例中，数据 <code>source</code> 和 <code>loading</code> 都有非常清晰并且唯一的数据来源。当 prop 改变时，<code>loading</code> 的状态<strong>一定</strong>会改变。相反，state 只有在 prop 改变时才会改变，除非组件内部还有其他行为改变这个状态。</p>
+<p>   上述条件如果有一个不满足，就会导致问题，最常见的就是在两个表单里修改数据。</p>
+<h4 id="反模式-直接复制-props-到-state"><a href="#反模式-直接复制-props-到-state" class="headerlink" title="反模式: 直接复制 props 到 state"></a>反模式: 直接复制 props 到 state</h4><p>   最常见的误解就是 <code>getDerivedStateFromProps</code> 和 <code>componentWillReceiveProps</code> 只会在 props “改变”时才会调用。实际上只要父级重新渲染时，这两个生命周期函数就会重新调用，不管 props 有没有“变化”。所以，在这两个方法内直接复制（<em>unconditionally</em>）props 到 state 是不安全的。<strong>这样做会导致 state 后没有正确渲染</strong>。</p>
+<p>重现一下这个问题。这个 <code>EmailInput</code> 组件复制 props 到 state：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EmailInput</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  state = &#123; <span class="hljs-attr">email</span>: <span class="hljs-keyword">this</span>.props.email &#125;;<br><br>  render() &#123;<br>    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;this.handleChange&#125;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;this.state.email&#125;</span> /&gt;</span></span>;<br>  &#125;<br><br>  handleChange = <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">this</span>.setState(&#123; <span class="hljs-attr">email</span>: event.target.value &#125;);<br>  &#125;;<br><br>  componentWillReceiveProps(nextProps) &#123;<br>    <span class="hljs-comment">// 这会覆盖所有组件内的 state 更新！</span><br>    <span class="hljs-comment">// 请不要这样做。</span><br>    <span class="hljs-keyword">this</span>.setState(&#123; <span class="hljs-attr">email</span>: nextProps.email &#125;);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>乍看之下还可以。 state 的初始值是 props 传来的，当在 <code>&lt;input&gt;</code> 里输入时，修改 state。但是如果父组件重新渲染，我们输入的所有东西都会丢失！(<a href="https://codesandbox.io/s/m3w9zn1z8x" target="_blank" rel="noopener">查看这个示例</a>)，即使在重置 state 前比较 <code>nextProps.email !== this.state.email</code> 仍然会导致更新。</p>
+<p>   这个小例子中，使用 <code>shouldComponentUpdate</code> ，比较 props 的 email 是不是修改再决定要不要重新渲染。但是在实践中，一个组件会接收多个 props，任何一个 prop 的改变都会导致重新渲染和不正确的状态重置。加上行内函数和对象 props，创建一个完全可靠的 <code>shouldComponentUpdate</code> 会变得越来越难。<a href="https://codesandbox.io/s/jl0w6r9w59" target="_blank" rel="noopener">这个示例展示了这个情况</a>。而且 <code>shouldComponentUpdate</code> 的最佳实践是用于性能提升，而不是改正不合适的派生 state。</p>
+<p><strong>注释：</strong> </p>
+<p>上面这一段终于理解了， 大概就是表达当我父组件更新时，我如何保证自己的子组件不更新，如果只是单个 状态或者值影响子组件更新的话，就可以用shouldComponentUpdate 直接决定是否子组件需要跟新，但是一旦多个props 的 改变，在shpuldComponentUpdate 里面就回很复杂。</p>
+<p>   希望以上能解释清楚为什么<strong>直接复制 prop 到 state 是一个非常糟糕的做法</strong>。在寻找解决方案之前，让我们看看一个相关的问题：假如我们只使用 props 中的 email 属性更新组件呢？</p>
+<h4 id="反模式-在-props-变化后修改-state"><a href="#反模式-在-props-变化后修改-state" class="headerlink" title="反模式: 在 props 变化后修改 state"></a>反模式: 在 props 变化后修改 state</h4><p>   继续上面的示例，我们可以只使用 <code>props.email</code> 来更新组件，这样能防止修改 state 导致的 bug：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EmailInput</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  state = &#123;<br>    <span class="hljs-attr">email</span>: <span class="hljs-keyword">this</span>.props.email<br>  &#125;;<br><br>  componentWillReceiveProps(nextProps) &#123;<br>    <span class="hljs-comment">// 只要 props.email 改变，就改变 state</span><br>    <span class="hljs-keyword">if</span> (nextProps.email !== <span class="hljs-keyword">this</span>.props.email) &#123;<br>      <span class="hljs-keyword">this</span>.setState(&#123;<br>        <span class="hljs-attr">email</span>: nextProps.email<br>      &#125;);<br>    &#125;<br>  &#125;<br>  <br>  <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>注意：</p>
+<p>​       示例中使用了 <code>componentWillReceiveProps</code> ，使用 <code>getDerivedStateFromProps</code> 也是一样</p>
+<p>​      我们已经做了一个很大的改进。现在组件只会在 prop 改变时才会改变。</p>
+<p>​     但是仍然有个问题。想象一下，如果这是一个密码输入组件，拥有同样 email 的两个账户进行切换时，这个输入框不会重置（用来让用户重新登录）。因为父组件传来的 prop 值没有变化！这会让用户非常惊讶，因为这看起来像是帮助一个用户分享了另外一个用户的密码，(<a href="https://codesandbox.io/s/mz2lnkjkrx" target="_blank" rel="noopener">查看这个示例</a>)。</p>
+<p>​     </p>
+<p>​      虽然这个设计就有问题，但是这样的错误很常见，(<a href="https://twitter.com/brian_d_vaughn/status/959600888242307072" target="_blank" rel="noopener">我就犯过这样的错误</a>)。幸运的是，有两个方案能解决这些问题。这两者的关键在于，<strong>任何数据，都要保证只有一个数据来源，而且避免直接复制它</strong>。我们来看看这两个方案。</p>
+<h4 id="更好的解决方法"><a href="#更好的解决方法" class="headerlink" title="更好的解决方法"></a>更好的解决方法</h4><h4 id="建议：完全可控的组件"><a href="#建议：完全可控的组件" class="headerlink" title="建议：完全可控的组件"></a>建议：完全可控的组件</h4><p>​    阻止上述问题发生的一个方法是，从组件里删除 state。如果 prop 里只包含了 email，我们就没必要担心它和 state 冲突。我们甚至可以把 <code>EmailInput</code> 转换成一个轻量级的函数组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">EmailInput</span>(<span class="hljs-params">props</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;props.onChange&#125;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;props.email&#125;</span> /&gt;</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>   这样能用最简单的方式完成我们需要的组件。但是如果我们仍然想要保存临时的值，则需要父组件手动执行保存这个动作。(<a href="https://codesandbox.io/s/7154w1l551" target="_blank" rel="noopener">点击查看这个模式的演示</a>)。</p>
+<h4 id="建议：有-key-的非受控组件"><a href="#建议：有-key-的非受控组件" class="headerlink" title="建议：有 key 的非受控组件"></a>建议：有 key 的非受控组件</h4><p>   另外一个选择是让组件自己存储临时的 email state。在这种情况下，组件仍然可以从 prop 接收“初始值”，但是更改之后的值就和 prop 没关系了：</p>
+<p>   在这密码管理器的例子中，为了在不同的页面切换不同的值，我们可以使用 <code>key</code> 这个特殊的 React 属性。当 <code>key</code> 变化时， React 会<a href="https://zh-hans.reactjs.org/docs/reconciliation.html#keys" target="_blank" rel="noopener">创建一个新的而不是更新一个既有的组件</a>。 Keys 一般用来渲染动态列表，但是这里也可以使用。在这个示例里，当用户输入时，我们使用 user ID 当作 key 重新创建一个新的 email input 组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;EmailInput<br>  defaultEmail=&#123;<span class="hljs-keyword">this</span>.props.user.email&#125;<br>  key=&#123;<span class="hljs-keyword">this</span>.props.user.id&#125;<br>/&gt;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>​    每次 ID 更改，都会重新创建 <code>EmailInput</code> ，并将其状态重置为最新的 <code>defaultEmail</code> 值。(<a href="https://codesandbox.io/s/6v1znlxyxn" target="_blank" rel="noopener">点击查看这个模式的演示</a>) 使用此方法，不用为每次输入都添加 <code>key</code>，在整个表单上添加 <code>key</code> 更合理。每次 key 变化，表单里的所有组件都会用新的初始值重新创建。</p>
+<p>   大部分情况下，这是处理重置 state 的最好的办法。</p>
+<p>​      <strong>注意</strong></p>
+<blockquote>
+<p>这看起来很慢，但是这点的性能是可以忽略的。如果在组件树的更新上有很重的逻辑，这样反而会更快，因为省略了子组件 diff。</p>
+</blockquote>
+<h4 id="选项一：用-prop-的-ID-重置非受控组件"><a href="#选项一：用-prop-的-ID-重置非受控组件" class="headerlink" title="选项一：用 prop 的 ID 重置非受控组件"></a>选项一：用 prop 的 ID 重置非受控组件</h4><p>   如果某些情况下 <code>key</code> 不起作用（可能是组件初始化的开销太大），一个麻烦但是可行的方案是在 <code>getDerivedStateFromProps</code> 观察 <code>userID</code> 的变化：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EmailInput</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  state = &#123;<br>    <span class="hljs-attr">email</span>: <span class="hljs-keyword">this</span>.props.defaultEmail,<br>    <span class="hljs-attr">prevPropsUserID</span>: <span class="hljs-keyword">this</span>.props.userID<br>  &#125;;<br><br>  <span class="hljs-keyword">static</span> getDerivedStateFromProps(props, state) &#123;<br>    <span class="hljs-comment">// 只要当前 user 变化，</span><br>    <span class="hljs-comment">// 重置所有跟 user 相关的状态。</span><br>    <span class="hljs-comment">// 这个例子中，只有 email 和 user 相关。</span><br>    <span class="hljs-keyword">if</span> (props.userID !== state.prevPropsUserID) &#123;<br>      <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-attr">prevPropsUserID</span>: props.userID,<br>        <span class="hljs-attr">email</span>: props.defaultEmail<br>      &#125;;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>   如果你乐意，你也可以只重置一小部分 state (<a href="https://codesandbox.io/s/rjyvp7l3rq" target="_blank" rel="noopener">点击查看这个模式的演示</a>)。</p>
+<p>  <strong>注意</strong></p>
+<blockquote>
+<p>上面的示例使用了 <code>getDerivedStateFromProps</code>，用 <code>componentWillReceiveProps</code> 也一样。</p>
+</blockquote>
+<h4 id="选项二：使用实例方法重置非受控组件"><a href="#选项二：使用实例方法重置非受控组件" class="headerlink" title="选项二：使用实例方法重置非受控组件"></a>选项二：使用实例方法重置非受控组件</h4><p>​       更少见的情况是，即使没有合适的 <code>key</code>，我们也想重新创建组件。一种解决方案是给一个随机值或者递增的值当作 <code>key</code>，另外一种是用实例方法强制重置内部状态：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EmailInput</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  state = &#123;<br>    <span class="hljs-attr">email</span>: <span class="hljs-keyword">this</span>.props.defaultEmail<br>  &#125;;<br><br>  resetEmailForNewUser(newEmail) &#123;<br>    <span class="hljs-keyword">this</span>.setState(&#123; <span class="hljs-attr">email</span>: newEmail &#125;);<br>  &#125;<br><br>  <span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>   然后父级组件可以<a href="https://zh-hans.reactjs.org/docs/glossary.html#refs" target="_blank" rel="noopener">使用 <code>ref</code> 调用这个方法</a>。(<a href="https://codesandbox.io/s/l70krvpykl" target="_blank" rel="noopener">点击查看这个模式的演示</a>)。</p>
+<p>   refs 在某些情况下很有用，比如这个。但通常我们建议谨慎使用。即使是做一个演示，这个命令式的方法也是非理想的，因为这会导致两次而不是一次渲染。</p>
+<h3 id="概括"><a href="#概括" class="headerlink" title="概括"></a>概括</h3><p>​     回顾一下，设计组件时，重要的是确定组件是受控组件还是非受控组件。</p>
+<p>​     不要直接复制（mirror） props 的值到 state 中，而是去实现一个<strong>受控</strong>的组件，然后在父组件里合并两个值。比如，不要在子组件里被动的接受 <code>props.value</code> 并跟踪一个临时的 <code>state.value</code>，而要在父组件里管理 <code>state.draftValue</code> 和 <code>state.committedValue</code>，直接控制子组件里的值。这样数据才更加明确可预测。</p>
+<p>对于<strong>不受控</strong>的组件，当你想在 prop 变化（通常是 ID ）时重置 state 的话，可以选择以下几种方式：</p>
+<ul>
+<li><strong>建议: 重置内部所有的初始 state，使用 key 属性</strong></li>
+<li>选项一：仅更改某些字段，观察特殊属性的变化（比如 <code>props.userID</code>）。</li>
+<li>选项二：使用 ref 调用实例方法。</li>
+</ul>
+<h4 id="尝试一下-memoization？"><a href="#尝试一下-memoization？" class="headerlink" title="尝试一下 memoization？"></a>尝试一下 memoization？</h4><p>​        我们上面用到了————仅在输入变化时，重新计算 <code>render</code> 需要使用的值————这个技术叫做 <a href="https://en.wikipedia.org/wiki/Memoization" target="_blank" rel="noopener">memoization</a>。</p>
+<p>​        把派生 state 用作 memoization 并不是什么坏事情，但是这并不是好的方法。管理派生 state 本来就很复杂，而且这种复杂度是随着需要管理的属性变得越来越庞大。比如，如果我们想在组件 state 里添加第二个派生 state，那就需要写两份跟踪变化的逻辑。</p>
+<p>​     </p>
+<p>​        这里有个示例，组件使用一个 prop ————一个列表————并在用户输入查询条件时显示匹配的项，我们可以使用派生 state 存储过滤后的列表：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  state = &#123;<br>    <span class="hljs-attr">filterText</span>: <span class="hljs-string">""</span>,<br>  &#125;;<br><br>  <span class="hljs-comment">// *******************************************************</span><br>  <span class="hljs-comment">// 注意：这个例子不是建议的方法。</span><br>  <span class="hljs-comment">// 下面的例子才是建议的方法。</span><br>  <span class="hljs-comment">// *******************************************************</span><br><br>  <span class="hljs-keyword">static</span> getDerivedStateFromProps(props, state) &#123;<br>    <span class="hljs-comment">// 列表变化或者过滤文本变化时都重新过滤。</span><br>    <span class="hljs-comment">// 注意我们要存储 prevFilterText 和 prevPropsList 来检测变化。</span><br>    <span class="hljs-keyword">if</span> (<br>      props.list !== state.prevPropsList ||<br>      state.prevFilterText !== state.filterText<br>    ) &#123;<br>      <span class="hljs-keyword">return</span> &#123;<br>        <span class="hljs-attr">prevPropsList</span>: props.list,<br>        <span class="hljs-attr">prevFilterText</span>: state.filterText,<br>        <span class="hljs-attr">filteredList</span>: props.list.filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.text.includes(state.filterText))<br>      &#125;;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>  &#125;<br><br>  handleChange = <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">this</span>.setState(&#123; <span class="hljs-attr">filterText</span>: event.target.value &#125;);<br>  &#125;;<br><br>  render() &#123;<br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Fragment</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;this.handleChange&#125;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;this.state.filterText&#125;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>&#123;this.state.filteredList.map(item =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item.id&#125;</span>&gt;</span>&#123;item.text&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>)&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">Fragment</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​     </p>
+<p>​       这个实现避免了重复计算 <code>filteredList</code>，但是过于复杂。因为它必须单独追踪并检测 prop 和 state 的变化，在能及时的更新过滤后的 list。我们可以使用 <code>PureComponent</code>，把过滤操作放到 render 方法里来简化这个组件：</p>
+ <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// PureComponents 只会在 state 或者 prop 的值修改时才会再次渲染。</span><br><span class="hljs-comment">// 通过对 state 和 prop 的 key 做浅比较（ shallow comparison ）来确定有没有变化。</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>&#123;<br>  <span class="hljs-comment">// state 只需要保存 filter 的值：</span><br>  state = &#123;<br>    <span class="hljs-attr">filterText</span>: <span class="hljs-string">""</span><br>  &#125;;<br><br>  handleChange = <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">this</span>.setState(&#123; <span class="hljs-attr">filterText</span>: event.target.value &#125;);<br>  &#125;;<br><br>  render() &#123;<br>    <span class="hljs-comment">// PureComponent 的 render 只有</span><br>    <span class="hljs-comment">// 在 props.list 或 state.filterText 变化时才会调用</span><br>    <span class="hljs-keyword">const</span> filteredList = <span class="hljs-keyword">this</span>.props.list.filter(<br>      <span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.text.includes(<span class="hljs-keyword">this</span>.state.filterText)<br>    )<br><br>    <span class="hljs-keyword">return</span> (<br>      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Fragment</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;this.handleChange&#125;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;this.state.filterText&#125;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>&#123;filteredList.map(item =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item.id&#125;</span>&gt;</span>&#123;item.text&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>)&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">Fragment</span>&gt;</span></span><br>    );<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>   上面的方法比派生 state 版本更加清晰明了。只有在过滤很大的列表时，这样做的效率不是很好。当有 prop 改变时 <code>PureComponent</code>不会阻止再次渲染。为了解决这两个问题，我们可以添加 memoization 帮助函数来阻止非必要的过滤：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><br> <span class="hljs-keyword">import</span> memoize <span class="hljs-keyword">from</span> <span class="hljs-string">"memoize-one"</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>&#123;<br>  <span class="hljs-comment">// state 只需要保存当前的 filter 值：</span><br>  state = &#123; <span class="hljs-attr">filterText</span>: <span class="hljs-string">""</span> &#125;;<br><br>  <span class="hljs-comment">// 在 list 或者 filter 变化时，重新运行 filter：</span><br>  filter = memoize(<br>    <span class="hljs-function">(<span class="hljs-params">list, filterText</span>) =&gt;</span> list.filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.text.includes(filterText))<br>  );<br><br>  handleChange = <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">this</span>.setState(&#123; <span class="hljs-attr">filterText</span>: event.target.value &#125;);<br>  &#125;;<br><br>  render() &#123;<br>    <span class="hljs-comment">// 计算最新的过滤后的 list。</span><br>    <span class="hljs-comment">// 如果和上次 render 参数一样，`memoize-one` 会重复使用上一次的值。</span><br>    <span class="hljs-keyword">const</span> filteredList = <span class="hljs-keyword">this</span>.filter(<span class="hljs-keyword">this</span>.props.list, <span class="hljs-keyword">this</span>.state.filterText);<br><span class="hljs-keyword">return</span> (<br>  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Fragment</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;this.handleChange&#125;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;this.state.filterText&#125;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>&#123;filteredList.map(item =&gt; <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;item.id&#125;</span>&gt;</span>&#123;item.text&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>)&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">Fragment</span>&gt;</span></span><br>);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这样更简单，而且和派生 state 版本一样好！</p>
+<p>在使用 memoization 时，请记住这些约束：</p>
+<ol>
+<li>大部分情况下， <strong>每个组件内部都要引入 memoized 方法</strong>，已免实例之间相互影响。</li>
+<li>一般情况下，我们会<strong>限制 memoization 帮助函数的缓存空间</strong>，以免内存泄漏。（上面的例子中，使用 <code>memoize-one</code> 只缓存最后一次的参数和结果）。</li>
+<li>如果每次父组件都传入新的 <code>props.list</code> ，那本文提到的问题都不会遇到。在大多数情况下，这种方式是可取的。</li>
+</ol>
+<h4 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h4><p>在实际应用中，组件一般都会有受控组件和非受控组件。这是正常的！不过如果每个值都有明确的来源，就可以避免上面提到的反面模式。</p>
+<p><code>getDerivedStateFromProps</code> （以及其他派生 state）是一个高级复杂的功能，应该保守使用，这个再怎么重申也不过分。如果你的用法不属于上述这些模式，请在 <a href="https://github.com/reactjs/reactjs.org/issues/new" target="_blank" rel="noopener">GitHub</a> 或 <a href="https://twitter.com/reactjs" target="_blank" rel="noopener">Twitter</a> 与我们分享！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="https://s2.ax1x.com/2020/01/25/1eLVmR.jpg" alt="Mars wechat" style="width: 200px; max-width: 100%;"/>
+    <div>订阅给大嘴巴子</div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>教练我想吃辣条</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="https://s2.ax1x.com/2020/01/25/1eL01g.jpg" alt="Mars 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="https://s2.ax1x.com/2020/01/25/1eLw9S.jpg" alt="Mars 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%BF%BB%E8%AF%91/" <i class="fa fa-tag"></i> 翻译</a>
+          
+            <a href="/tags/React/" <i class="fa fa-tag"></i> React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/" rel="next" title="你不知的数组去重">
+                <i class="fa fa-chevron-left"></i> 你不知的数组去重
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81redux/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81Redux/" rel="prev" title="你可能不需要Redux">
+                你可能不需要Redux <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Mars" />
+            
+              <p class="site-author-name" itemprop="name">Mars</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Marszht" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://segmentfault.com/u/mars_5ad9c4d43eed5" target="_blank" title="Segmentfault">
+                      
+                        <i class="fa fa-fw fa-skype"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="1046209799@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#【译】你可能不需要派生状态"><span class="nav-number">1.</span> <span class="nav-text">【译】你可能不需要派生状态</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#何时使用派生状态"><span class="nav-number">1.1.</span> <span class="nav-text">何时使用派生状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#派生-state-的常见-bug"><span class="nav-number">1.2.</span> <span class="nav-text">派生 state 的常见 bug</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反模式-直接复制-props-到-state"><span class="nav-number">1.3.</span> <span class="nav-text">反模式: 直接复制 props 到 state</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反模式-在-props-变化后修改-state"><span class="nav-number">1.4.</span> <span class="nav-text">反模式: 在 props 变化后修改 state</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更好的解决方法"><span class="nav-number">1.5.</span> <span class="nav-text">更好的解决方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建议：完全可控的组件"><span class="nav-number">1.6.</span> <span class="nav-text">建议：完全可控的组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建议：有-key-的非受控组件"><span class="nav-number">1.7.</span> <span class="nav-text">建议：有 key 的非受控组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选项一：用-prop-的-ID-重置非受控组件"><span class="nav-number">1.8.</span> <span class="nav-text">选项一：用 prop 的 ID 重置非受控组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选项二：使用实例方法重置非受控组件"><span class="nav-number">1.9.</span> <span class="nav-text">选项二：使用实例方法重置非受控组件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概括"><span class="nav-number">2.</span> <span class="nav-text">概括</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#尝试一下-memoization？"><span class="nav-number">2.1.</span> <span class="nav-text">尝试一下 memoization？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结束语"><span class="nav-number">2.2.</span> <span class="nav-text">结束语</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mars</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.4"></script>
+
+
+  
+
+</body>
+</html>
