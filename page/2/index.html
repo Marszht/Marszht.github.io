@@ -86,7 +86,7 @@
 <meta name="description" content="自由, 勇敢">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mars">
-<meta property="og:url" content="http://yoursite.com/">
+<meta property="og:url" content="http://yoursite.com/page/2/">
 <meta property="og:site_name" content="Mars">
 <meta property="og:description" content="自由, 勇敢">
 <meta property="article:author" content="Mars">
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
@@ -264,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E6%B5%85%E8%B0%88-undefined-null/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E6%B4%BE%E7%94%9F%E7%8A%B6%E6%80%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mars">
@@ -283,7 +283,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/%E6%B5%85%E8%B0%88-undefined-null/" itemprop="url">浅谈 undefined & null</a></h2>
+                <a class="post-title-link" href="/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E6%B4%BE%E7%94%9F%E7%8A%B6%E6%80%81/" itemprop="url">你可能不需要派生状态</a></h2>
         
 
         <div class="post-meta">
@@ -295,810 +295,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-30T14:48:26+08:00">
-                2020-01-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/%E6%B5%85%E8%B0%88-undefined-null/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="浅谈-undefined-null/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="1-初识-null-amp-undefined"><a href="#1-初识-null-amp-undefined" class="headerlink" title="1.初识 null &amp; undefined"></a>1.初识 null &amp; undefined</h4><hr>
-<blockquote>
-<p>在javascript 中有两种特别的基本数据类型 null undefined 初学者 对其也很模糊或者直接认为它俩相等。</p>
-</blockquote>
-<p>确实在判断 是否为真值时null 和undefined 也就是if语句中 它俩都是为 false, 甚至有</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log( <span class="hljs-literal">null</span> == <span class="hljs-literal">undefined</span> )      <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="2-深入理解-undefined-amp-null"><a href="#2-深入理解-undefined-amp-null" class="headerlink" title="2. 深入理解 undefined &amp; null"></a>2. 深入理解 undefined &amp; null</h3><p>在js中我们经常用一个 typeof来检测一个变量的类型， 而且返回的是一个字符串类型。看下面的例子</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log( <span class="hljs-literal">null</span> === <span class="hljs-literal">undefined</span> )  <span class="hljs-comment">// true?  X</span><br></code></pre></td></tr></table></figure>
-
-<p>答案是否定的. 我们试着用 typeof 打印一下 null 和undefined</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/%E6%B5%85%E8%B0%88-undefined-null/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E5%B7%A5%E5%85%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mars">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E5%B7%A5%E5%85%B7/" itemprop="url">工作中提升效率的工具</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-29T22:55:55+08:00">
-                2020-01-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%88%E7%8E%87/" itemprop="url" rel="index">
-                    <span itemprop="name">效率</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E5%B7%A5%E5%85%B7/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="工作中提升效率的工具/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>本文主要介绍自己在平常工作开发中觉得能提升效率的一些方法</strong></p>
-<h2 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h2><ol>
-<li>笔记</li>
-</ol>
-<ul>
-<li><p><a href="https://note.youdao.com/" target="_blank" rel="noopener">有道云笔记</a></p>
-<blockquote>
-<p>之前一直都用这个。 </p>
-<ol>
-<li>支持 markdown 语法 和富文本编辑。满足你的笔记习惯。</li>
-<li>微信绑定， 和一键微信收藏链接至你的笔记</li>
-<li>缺点不能放本地图片， 需要vip 才行<br>不能上传图片是蛋疼</li>
-</ol>
-</blockquote>
-</li>
-<li><p><a href="http://soft.xiaoshujiang.com/" target="_blank" rel="noopener">小书匠</a>，</p>
-</li>
-<li><p><a href="https://www.yinxiang.com/" target="_blank" rel="noopener">印象笔记</a> </p>
-<blockquote>
-<p>听说也不错， 不过没怎么用过。 </p>
-</blockquote>
-</li>
-<li><p><a href="https://typora.io/" target="_blank" rel="noopener">Typra</a>(推荐)</p>
-<blockquote>
-<ol>
-<li>最近粉上的一款简约markdown 编辑器，支持本地图片上传， 图片仅支持本地浏览</li>
-<li>界面是真的好看， 主题能从官网下载， 解压之后是一个css 文件， 所有有兴趣可以自己试去编写一款属于自己的主题</li>
-</ol>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E5%B7%A5%E5%85%B7/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E6%95%B0%E7%BB%84-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E8%A7%81%E6%98%93%E5%BF%98%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mars">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/%E6%95%B0%E7%BB%84-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E8%A7%81%E6%98%93%E5%BF%98%E6%96%B9%E6%B3%95/" itemprop="url">数组 & 字符串常见易忘方法</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-25T22:43:47+08:00">
-                2020-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/%E6%95%B0%E7%BB%84-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E8%A7%81%E6%98%93%E5%BF%98%E6%96%B9%E6%B3%95/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="数组-字符串常见易忘方法/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="数组-amp-字符串常见易忘方法"><a href="#数组-amp-字符串常见易忘方法" class="headerlink" title="数组 &amp; 字符串常见易忘方法"></a>数组 &amp; 字符串常见易忘方法</h2><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h4 id="splice-start-num-item"><a href="#splice-start-num-item" class="headerlink" title="splice(start, num, item)"></a>splice(start, num, item)</h4><blockquote>
-</blockquote>
-<h4 id="slice-start-end"><a href="#slice-start-end" class="headerlink" title="slice(start, end)"></a>slice(start, end)</h4><ol>
-<li>不会改变原始数组，返回截取的数组,不包括end，从第一个参数开始</li>
-<li>然后如果是负值 参数加上数组长度再计算 ，然后如果超过数组长度则按最后计算</li>
-<li>不写第二个参数。默认最后. 包含start 不包括end
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/%E6%95%B0%E7%BB%84-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%B8%B8%E8%A7%81%E6%98%93%E5%BF%98%E6%96%B9%E6%B3%95/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/less-%E5%88%9D%E8%AF%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mars">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/less-%E5%88%9D%E8%AF%95/" itemprop="url">Less 初试</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-25T21:09:14+08:00">
-                2020-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Less/" itemprop="url" rel="index">
-                    <span itemprop="name">Less</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/less-%E5%88%9D%E8%AF%95/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="less-初试/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="less-初试"><a href="#less-初试" class="headerlink" title="less 初试"></a>less 初试</h2><h4 id="一-使用"><a href="#一-使用" class="headerlink" title="一: 使用"></a>一: 使用</h4><hr>
-<ol>
-<li>在node 环境中。</li>
-</ol>
-<blockquote>
-<ol>
-<li>安装</li>
-</ol>
-<p>npm install -g less </p>
-<p>或者用 yarn</p>
-<p>yarn add less</p>
-<ol start="2">
-<li>编译</li>
-</ol>
-<p>lessc styles.less style.css</p>
-</blockquote>
-<ol start="2">
-<li>在浏览器中</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet/less"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"styles.less"</span> /&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"</span> &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/less-%E5%88%9D%E8%AF%95/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81redux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mars">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mars">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81redux/" itemprop="url">你可能不需要Redux</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-25T21:00:15+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-25T20:57:33+08:00">
                 2020-01-25
               </time>
             
@@ -1139,9 +336,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81redux/#comments" itemprop="discussionUrl">
+                <a href="/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E6%B4%BE%E7%94%9F%E7%8A%B6%E6%80%81/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="你可能不需要redux/" itemprop="commentCount"></span>
+                        data-disqus-identifier="你可能不需要派生状态/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1201,22 +398,790 @@
 
       
         
-          <p>[译]你可能不需要Redux  </p>
-<blockquote>
-<p>原文链接<a href="https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367" target="_blank" rel="noopener">You Might Not Need Redux</a>  </p>
+          <h3 id="【译】你可能不需要派生状态"><a href="#【译】你可能不需要派生状态" class="headerlink" title="【译】你可能不需要派生状态"></a>【译】你可能不需要派生状态</h3><blockquote>
+<p>原文链接 <a href="https://react.docschina.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key" target="_blank" rel="noopener">You Probably Don’t Need Derived State</a></p>
 </blockquote>
-<p>  人们经常在需要前选择Redux。如果没有它我们的应用程序不能扩展怎么办。后来， 开发人员对REdux介绍他们的代码的方向很困惑。为什么我必须使用三个文件才能使一个简单的功能工作？为什么呢？</p>
-<p>人们将Redux，React，函数式编程，不变性以及许多其他东西归咎于他们的困境，我理解他们。 很自然地将Redux与不需要“样板”代码来更新状态的方法进行比较，并得出结论Redux只是复杂的。在某种程度上，它是设计的</p>
-<p>Redux 提供权衡。它要求你：</p>
-<ul>
-<li>将应用程序状态描述为普通对象和数组</li>
-<li>将系统中的更改描述为普通对象</li>
-<li>描述将更改作为纯函数处理的逻辑</li>
-</ul>
-<p>无论有没有React，构建应用程序都不需要这些限制。事实上，这些都是非常强大的限制因素，即使在应用程序的某些部分中，在使用前你也应该仔细考虑它们。</p>
+<p>​      React 16.4包含了<a href="https://react.docschina.org/blog/2018/05/23/react-v-16-4.html#bugfix-for-getderivedstatefromprops" target="_blank" rel="noopener">getDerivedStateFromProps的</a><a href="https://react.docschina.org/blog/2018/05/23/react-v-16-4.html#bugfix-for-getderivedstatefromprops" target="_blank" rel="noopener">bug，</a>这个 bug 会在 React components 复现一些已知的 bug。如果这个版本导致出现的问题，导致您在修复过之后还已知出现的话，我们非常抱歉。在这篇文章中，我们将解释一些常见的反模式与派生状态和我们的首选替代方案。</p>
+<p>​      很长一段时间，生命周期componentWillReceiveProps是更新状态以响应props改变没有额外渲染的的唯一方法。在版本16.3中，<a href="https://react.docschina.org/blog/2018/03/29/react-v-16-3.html#component-lifecycle-changes" target="_blank" rel="noopener">我们引入了替换生命周期，<code>getDerivedStateFromProps</code></a>以更安全的方式解决相同的情况。与此同时，我们意识到人们对如何使用这两种方法存在许多误解，并且我们发现反模式会导致细微而混乱的错误。getDerivedStateFromProps在16.4中的错误修正<a href="https://github.com/facebook/react/issues/12898" target="_blank" rel="noopener">使得派生状态更具可预测性</a>，因此滥用它的结果更容易被注意到</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81redux/#more" rel="contents">
+            <a class="btn" href="/%E4%BD%A0%E5%8F%AF%E8%83%BD%E4%B8%8D%E9%9C%80%E8%A6%81%E6%B4%BE%E7%94%9F%E7%8A%B6%E6%80%81/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/" itemprop="url">你不知的数组去重</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-25T20:45:37+08:00">
+                2020-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JS/" itemprop="url" rel="index">
+                    <span itemprop="name">JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="你不知的数组去重/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="你不知道的数组去重"><a href="#你不知道的数组去重" class="headerlink" title="你不知道的数组去重"></a>你不知道的数组去重</h3><p><strong>1. 双重循环</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-string">"2"</span>, <span class="hljs-number">1</span>]<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unique1</span>(<span class="hljs-params">array</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> res = []<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; res.length; j++) &#123;<br>      <span class="hljs-keyword">if</span> (arr[i] === res[j]) &#123;<br>        <span class="hljs-keyword">break</span>;<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (j === res.length) &#123;<br>      res.push(arr[i])<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> res<br>&#125;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'unique1'</span>, unique1(arr))<br></code></pre></td></tr></table></figure>
+
+<p>时间复杂度 o(n^2)  空间复杂度 o(n)  </p>
+<p>优点： 兼容性好， </p>
+<p>缺点： 代码较多， 时间复杂度也高。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/%E4%BD%A0%E4%B8%8D%E7%9F%A5%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E8%92%99%E5%B1%82%E7%A9%BF%E9%80%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/%E8%92%99%E5%B1%82%E7%A9%BF%E9%80%8F/" itemprop="url">蒙层穿透</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-25T16:32:11+08:00">
+                2020-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTML/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E8%92%99%E5%B1%82%E7%A9%BF%E9%80%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="蒙层穿透/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Mask-Scroll"><a href="#Mask-Scroll" class="headerlink" title="Mask-Scroll"></a>Mask-Scroll</h1><p><em>&gt;</em> <a href="https://github.com/Marszht/mask-scroll" target="_blank" rel="noopener">原码地址</a>*</p>
+<h3 id="蒙层防穿透问题"><a href="#蒙层防穿透问题" class="headerlink" title="蒙层防穿透问题"></a>蒙层防穿透问题</h3><p>  <em>&gt; 蒙层穿透就是，当你用fixed 布局让蒙层显示的时候， 手指滑动屏幕会出现底部内容也滑动的现象. 如图：</em> </p>
+<p><img src="https://github.com/Marszht/mask-scroll/raw/master/images/scroll.gif" alt="fixed"></p>
+<p>   当蒙层出现的时候，你滚动屏幕，底部内容也一起跟着滚动。 这就是蒙层穿透， 也可以叫 ‘滚动穿透’. 当然出现这种情况， 用户体验当然是不好的了。 所以作为一个有点追求的工程师当然是不允许这种情况的发生了(手动狗头…)</p>
+<p>   <img src="https://www.anruan.com/Public/upload/image/20171114/20171114153710_20514.jpg" alt="狗头保命"></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/%E8%92%99%E5%B1%82%E7%A9%BF%E9%80%8F/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E5%8D%81%E4%B8%80%E6%9C%88%E4%BB%BD%E5%8D%81%E4%B8%AA%E6%9C%89%E8%B6%A3%E7%9A%84js%E5%92%8Ccss%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/%E5%8D%81%E4%B8%80%E6%9C%88%E4%BB%BD%E5%8D%81%E4%B8%AA%E6%9C%89%E8%B6%A3%E7%9A%84js%E5%92%8Ccss%E5%BA%93/" itemprop="url">十一月份十个有趣的JS和CSS库</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-24T15:12:06+08:00">
+                2020-01-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BF%BB%E8%AF%91/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E5%8D%81%E4%B8%80%E6%9C%88%E4%BB%BD%E5%8D%81%E4%B8%AA%E6%9C%89%E8%B6%A3%E7%9A%84js%E5%92%8Ccss%E5%BA%93/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="十一月份十个有趣的js和css库/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="十一月份十个有趣的JS和CSS库"><a href="#十一月份十个有趣的JS和CSS库" class="headerlink" title="十一月份十个有趣的JS和CSS库"></a>十一月份十个有趣的JS和CSS库</h2><blockquote>
+<p><a href="https://tutorialzine.com/2019/11/10-interesting-javascript-and-css-libraries-for-november-2019" target="_blank" rel="noopener">原文链接</a></p>
+</blockquote>
+<p>Tutorialzine 的目的就是让你们能够及时知道web 开发的趋势以及最新资讯。这就是为什么我们为什么每月都会在发布一些我们精心挑选的一些值得你关注的东西。</p>
+<p>如果你喜欢这些文章，一定要订阅 <a href="https://devawesome.io/" target="_blank" rel="noopener">Dev Awesome</a>哟。这是我们每周两次更新的一个平台，在这里我们会分享一些很酷的一些文章，库，以及免费的设计资源。</p>
+<hr>
+<p><img src="https://tutorialzine.com/media/2019/11/card.jpg" alt="pas word"></p>
+<h3 id="Vue-Interactive-Paycard"><a href="#Vue-Interactive-Paycard" class="headerlink" title="Vue Interactive Paycard"></a><a href="https://github.com/muhammederdem/vue-interactive-paycard" target="_blank" rel="noopener">Vue Interactive Paycard</a></h3>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/%E5%8D%81%E4%B8%80%E6%9C%88%E4%BB%BD%E5%8D%81%E4%B8%AA%E6%9C%89%E8%B6%A3%E7%9A%84js%E5%92%8Ccss%E5%BA%93/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E4%BA%94%E6%AD%A5%E7%90%86%E8%A7%A3json-web-token-jwt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mars">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mars">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/%E4%BA%94%E6%AD%A5%E7%90%86%E8%A7%A3json-web-token-jwt/" itemprop="url"> 五步理解JSON Web Token(JWT)</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-24T12:56:49+08:00">
+                2020-01-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BF%BB%E8%AF%91/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E4%BA%94%E6%AD%A5%E7%90%86%E8%A7%A3json-web-token-jwt/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="五步理解json-web-token-jwt/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="五步理解JSON-Web-Token-JWT"><a href="#五步理解JSON-Web-Token-JWT" class="headerlink" title="五步理解JSON Web Token(JWT)"></a>五步理解JSON Web Token(JWT)</h3><blockquote>
+<p>原文链接<a href="https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec" target="_blank" rel="noopener">5 Easy Steps to Understanding JSON Web Tokens (JWT)</a></p>
+</blockquote>
+<p>​    在这篇文章中我们讲会讲到：  JSON Web Token(JWT)的基本原理是什么， 以及我们为什么要使用它？JWT是确保我们应用程序可信和安全的重要的一环。JWT 允许我们以安全的方式去表示像用户数据之类的声明。</p>
+<p>​    为了解释JWT 如何工作，我们从一个抽象的定义开始。</p>
+<blockquote>
+<p> JSON Web Token  是一个JSON 对象。在 <a href="https://tools.ietf.org/html/rfc7519" target="_blank" rel="noopener">REC 7519</a> 中这么定义：它表示双方的一组安全的信息方式。它由 头部（header）， 负载(payload) 和签名(signature)组成。</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/%E4%BA%94%E6%AD%A5%E7%90%86%E8%A7%A3json-web-token-jwt/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1258,7 +1223,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+    <a class="extend prev" rel="prev" href="/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
