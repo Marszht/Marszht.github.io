@@ -72,7 +72,7 @@
 
 
 
-  <meta name="keywords" content="js,undefined," />
+  <meta name="keywords" content="JS,React," />
 
 
 
@@ -83,17 +83,17 @@
 
 
 
-<meta name="description" content="1.初识 null &amp; undefined  在javascript 中有两种特别的基本数据类型 null undefined 初学者 对其也很模糊或者直接认为它俩相等。  确实在判断 是否为真值时null 和undefined 也就是if语句中 它俩都是为 false, 甚至有 1console.log( null &#x3D;&#x3D; undefined )      &#x2F;&#x2F; true  2. 深入理解">
+<meta name="description" content="为什么 setState 是异步的 ？ 原文链接  这篇文章是 github 中 react 的一个 issue 之前被其出来了，然后 gaearon （Redux 核心开发者）回答了该问题。 他主要从两个方面去阐述了这个问题  保证数据的一致性 使并发更新成为可能  以下是他的原文：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="浅谈 undefined &amp; null">
-<meta property="og:url" content="http://yoursite.com/%E6%B5%85%E8%B0%88-undefined-null/">
+<meta property="og:title" content="为什么 SetState 是异步的">
+<meta property="og:url" content="http://yoursite.com/%E4%B8%BA%E4%BB%80%E4%B9%88-setstate-%E6%98%AF%E5%BC%82%E6%AD%A5%E7%9A%84/">
 <meta property="og:site_name" content="Mars">
-<meta property="og:description" content="1.初识 null &amp; undefined  在javascript 中有两种特别的基本数据类型 null undefined 初学者 对其也很模糊或者直接认为它俩相等。  确实在判断 是否为真值时null 和undefined 也就是if语句中 它俩都是为 false, 甚至有 1console.log( null &#x3D;&#x3D; undefined )      &#x2F;&#x2F; true  2. 深入理解">
-<meta property="article:published_time" content="2020-01-30T06:48:26.000Z">
-<meta property="article:modified_time" content="2020-01-30T06:50:40.843Z">
+<meta property="og:description" content="为什么 setState 是异步的 ？ 原文链接  这篇文章是 github 中 react 的一个 issue 之前被其出来了，然后 gaearon （Redux 核心开发者）回答了该问题。 他主要从两个方面去阐述了这个问题  保证数据的一致性 使并发更新成为可能  以下是他的原文：">
+<meta property="article:published_time" content="2020-08-02T08:51:15.000Z">
+<meta property="article:modified_time" content="2020-08-02T08:52:19.111Z">
 <meta property="article:author" content="Mars">
-<meta property="article:tag" content="js">
-<meta property="article:tag" content="undefined">
+<meta property="article:tag" content="JS">
+<meta property="article:tag" content="React">
 <meta name="twitter:card" content="summary">
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/浅谈-undefined-null/"/>
+  <link rel="canonical" href="http://yoursite.com/为什么-setstate-是异步的/"/>
 
 
 
 
 
-  <title>浅谈 undefined & null | Mars</title>
+  <title>为什么 SetState 是异步的 | Mars</title>
   
 
 
@@ -267,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E6%B5%85%E8%B0%88-undefined-null/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E4%B8%BA%E4%BB%80%E4%B9%88-setstate-%E6%98%AF%E5%BC%82%E6%AD%A5%E7%9A%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mars">
@@ -284,7 +284,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">浅谈 undefined & null</h2>
+          <h2 class="post-title" itemprop="name headline">为什么 SetState 是异步的</h2>
         
 
         <div class="post-meta">
@@ -296,8 +296,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-30T14:48:26+08:00">
-                2020-01-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-02T16:51:15+08:00">
+                2020-08-02
               </time>
             
 
@@ -319,8 +319,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript</span>
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
                   </a>
                 </span>
 
@@ -337,9 +337,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/%E6%B5%85%E8%B0%88-undefined-null/#comments" itemprop="discussionUrl">
+                <a href="/%E4%B8%BA%E4%BB%80%E4%B9%88-setstate-%E6%98%AF%E5%BC%82%E6%AD%A5%E7%9A%84/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="浅谈-undefined-null/" itemprop="commentCount"></span>
+                        data-disqus-identifier="为什么-setstate-是异步的/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -347,7 +347,7 @@
 
           
           
-             <span id="/%E6%B5%85%E8%B0%88-undefined-null/" class="leancloud_visitors" data-flag-title="浅谈 undefined & null">
+             <span id="/%E4%B8%BA%E4%BB%80%E4%B9%88-setstate-%E6%98%AF%E5%BC%82%E6%AD%A5%E7%9A%84/" class="leancloud_visitors" data-flag-title="为什么 SetState 是异步的">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -378,49 +378,61 @@
       
 
       
-        <h4 id="1-初识-null-amp-undefined"><a href="#1-初识-null-amp-undefined" class="headerlink" title="1.初识 null &amp; undefined"></a>1.初识 null &amp; undefined</h4><hr>
-<blockquote>
-<p>在javascript 中有两种特别的基本数据类型 null undefined 初学者 对其也很模糊或者直接认为它俩相等。</p>
+        <h3 id="为什么-setState-是异步的-？"><a href="#为什么-setState-是异步的-？" class="headerlink" title="为什么 setState 是异步的 ？"></a>为什么 setState 是异步的 ？</h3><blockquote>
+<p><a href="https://github.com/facebook/react/issues/11527" target="_blank" rel="noopener">原文链接</a></p>
 </blockquote>
-<p>确实在判断 是否为真值时null 和undefined 也就是if语句中 它俩都是为 false, 甚至有</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log( <span class="hljs-literal">null</span> == <span class="hljs-literal">undefined</span> )      <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="2-深入理解-undefined-amp-null"><a href="#2-深入理解-undefined-amp-null" class="headerlink" title="2. 深入理解 undefined &amp; null"></a>2. 深入理解 undefined &amp; null</h3><p>在js中我们经常用一个 typeof来检测一个变量的类型， 而且返回的是一个字符串类型。看下面的例子</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log( <span class="hljs-literal">null</span> === <span class="hljs-literal">undefined</span> )  <span class="hljs-comment">// true?  X</span><br></code></pre></td></tr></table></figure>
-
-<p>答案是否定的. 我们试着用 typeof 打印一下 null 和undefined</p>
+<p>这篇文章是 github 中 react 的一个 issue 之前被其出来了，然后 <a href="https://github.com/gaearon" target="_blank" rel="noopener">gaearon</a> （Redux 核心开发者）回答了该问题。</p>
+<p>他主要从两个方面去阐述了这个问题</p>
+<ul>
+<li>保证数据的一致性</li>
+<li>使并发更新成为可能</li>
+</ul>
+<p>以下是他的原文：</p>
 <a id="more"></a>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log( <span class="hljs-keyword">typeof</span> <span class="hljs-literal">null</span>)                  <span class="hljs-comment">// object</span><br><span class="hljs-built_in">console</span>.log( <span class="hljs-keyword">typeof</span> <span class="hljs-literal">null</span> === <span class="hljs-string">"object"</span>)      <span class="hljs-comment">// true</span><br><span class="hljs-built_in">console</span>.log( <span class="hljs-keyword">typeof</span> <span class="hljs-literal">undefined</span> )              <span class="hljs-comment">// undefined</span><br><span class="hljs-built_in">console</span>.log( <span class="hljs-keyword">typeof</span> <span class="hljs-literal">undefined</span> === <span class="hljs-string">"undefined"</span> )   <span class="hljs-comment">// true undefined</span><br></code></pre></td></tr></table></figure>
 
-<p>我们发现 null 打印的是 object对象 而 undefined 打印的是undefined. (对于null 打印出object 有兴趣的可以去看看《你不知道的javaScript》中卷 第一章)</p>
-<h3 id="3-用法"><a href="#3-用法" class="headerlink" title="3. 用法"></a>3. 用法</h3><p>null: 表示 “没有对象”, 也就是不应该有值。</p>
-<ol>
-<li>作为函数参数， 表示该函数的参数不是对象</li>
-<li>对象原型链的终点。 也是null .对原型链不熟悉的同学可以看看.</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Object</span>.prototype.__proto__ === <span class="hljs-literal">null</span>) <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+<p>这里是我的一些想法和观点, 这不是一个 完整准确的回答，但是总比不回应好。</p>
+<p>首先 我们得承认 延迟<a href="https://react.docschina.org/docs/reconciliation.html" target="_blank" rel="noopener">协调</a>(<em>reconciliation</em> ) 去批量更新是有意义 的。因此我们说 <code>setState</code> 同步更新在很多情况下是低效的。如果知道会更新多次，批量更新是更好的选择。</p>
+<p>举个例子，如果我们在浏览器 点击，父组件和子组件都调用了 setState 我们不希望 子组件渲染两次，我们希望 把他们当作脏操作去忽视他们，我们只需要在执行完浏览器事件之后再一起渲染。</p>
+<p>你可能会问，为什么同步更新setState不能做同样的事（指批量更新）而不用等协调结束后。我不认为这个东西有确切的一个答案（或者是一个权衡的解决方案）但是以下是我的一些想法。</p>
+<h3 id="保证内部数据一致性"><a href="#保证内部数据一致性" class="headerlink" title="保证内部数据一致性"></a>保证内部数据一致性</h3><p>即使 state 更新是同步的，但是 props 并不是。（你需要等到父组件重新渲染的时候才知道具体的props 值，如果state 更新是同步的话，就没办法批量更新了）。</p>
+<p>  现在由Reacrt 提供的这些对象（state, props, refs）它们相互之间内部是一致的。这就意味着你如果仅用这些对象，它能保证你有一个完整协调的树（尽管它们可能是未更新的一个状态）。为什么这很重要呢？</p>
+<p>当你使用 state的时候，如果它是同步更新的（正如你提出的一样），下面的代码会生效：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pf">console.<span class="hljs-keyword">log</span>(this.<span class="hljs-keyword">state</span>.value) // <span class="hljs-number">0</span><br>this.<span class="hljs-built_in">set</span>State(&#123; value: this.<span class="hljs-keyword">state</span>.value + <span class="hljs-number">1</span> &#125;);<br>console.<span class="hljs-keyword">log</span>(this.<span class="hljs-keyword">state</span>.value) // <span class="hljs-number">1</span><br>this.<span class="hljs-built_in">set</span>State(&#123; value: this.<span class="hljs-keyword">state</span>.value + <span class="hljs-number">1</span> &#125;);<br>console.<span class="hljs-keyword">log</span>(this.<span class="hljs-keyword">state</span>.value) // <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
 
-<p>undefined: 表示 没有值 缺少值 就是此处应该有个值但是没有定义。</p>
-<ol>
-<li>变量被申明了但是没有被赋值</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> a ;<br><span class="hljs-built_in">console</span>.log( a )   <span class="hljs-comment">// undefined</span><br>a = <span class="hljs-number">2</span>;<br><span class="hljs-built_in">console</span>.log( a )   <span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure>
+<p>然而，当上面的 value 需要被其他组件使用的时候，你需要把它提升到父组件上面去：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">-<span class="hljs-keyword">this</span>.setState(&#123; value: <span class="hljs-keyword">this</span>.state.value + <span class="hljs-number">1</span> &#125;);<br>+<span class="hljs-keyword">this</span>.props.onIncrement(); <span class="hljs-comment">// Does the same thing in a parent</span><br></code></pre></td></tr></table></figure>
 
-<ol>
-<li>函数调用时，该提供的参数没有提供。</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params">a</span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log( a );           <span class="hljs-comment">// undefined</span><br>&#125;<br>f();<br></code></pre></td></tr></table></figure>
+<p>我想强调的是在典型的React 应用中，依赖于setState()处理是您每天都会使用的一种最常见的特定于React的代码重构。</p>
+<p>然而，经过上面的修改后，我们将得到不是我们想要的结果!</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">console.log(<span class="hljs-keyword">this</span>.props.value) <span class="hljs-comment">// 0</span><br><span class="hljs-keyword">this</span>.props.onIncrement();<br>console.log(<span class="hljs-keyword">this</span>.props.value) <span class="hljs-comment">// 0</span><br><span class="hljs-keyword">this</span>.props.onIncrement();<br>console.log(<span class="hljs-keyword">this</span>.props.value) <span class="hljs-comment">// 0</span><br></code></pre></td></tr></table></figure>
 
-<ol>
-<li>对象属性没有赋值， 该属性为undefined</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> Person();<br><span class="hljs-built_in">console</span>.log(obj.age);      <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
+<p>这是因为在你提出的模式中，this.state 会立即更新，但是 this.props 不会。我们不能在父组件没有重新渲染的时候马上更新 <code>this.props</code> , 因为this.state 的同步更新，我们不得不放弃批量更新（在一些情况下，这会严重降低应用性能）。</p>
+<p>还有更多的一些小案例说明这个同步更新state 会导致问题，像，如果你用 props (未更新)和 state（立即更新）去生成一个 新的 state  <a href="https://github.com/facebook/react/issues/122#issuecomment-81856416" target="_blank" rel="noopener">#122 (comment)</a>  (译者注：这个回答说明的就是这种情况， 当我们用 props 和 state 去生成一个新的状态时的问题)。 Refs 也会有相同的问题  <a href="https://github.com/facebook/react/issues/122#issuecomment-22659651" target="_blank" rel="noopener">#122 (comment)</a>。</p>
+<p>这些例子 一点也不算是理论上的。事实上 react-redux  也会有这种 问题，</p>
+<p> <a href="https://github.com/reduxjs/react-redux/issues/86" target="_blank" rel="noopener">reduxjs/react-redux#86</a>, <a href="https://github.com/reduxjs/react-redux/pull/99" target="_blank" rel="noopener">reduxjs/react-redux#99</a>, <a href="https://github.com/reduxjs/react-redux/issues/292" target="_blank" rel="noopener">reduxjs/react-redux#292</a>, <a href="https://github.com/reduxjs/redux/issues/1415" target="_blank" rel="noopener">reduxjs/redux#1415</a>, <a href="https://github.com/reduxjs/react-redux/issues/525" target="_blank" rel="noopener">reduxjs/react-redux#525</a>.</p>
+<p>我不知道，为什么没 Mobx 使用者没有遇到过这个问题，但是我的直觉是他们可能遇到过这个场景，但是他们可能认为这是他们自己的错误。或者他们没有过多的使用 props 而是 直接获取 Mobx  的 变化的对象。</p>
+<p>因此， React 如今是怎么解决这个问题的？ <strong>在 React 中， state 和 props 回在协调 结束后更新，因此你可能会看见  0 在重构前后被打印。</strong>这让 state 提升变得安全。</p>
+<p>是的，这在有些情况下会变得不方便。特别是对那些 来自 面向对象的朋友 他们只想 更新较少次的 state状态，而不用去想怎么去考虑整个state的更新。我能理解那样，尽管我还是坚持认为 把 state 集中更新对于 debug 是很清晰的 <a href="https://github.com/facebook/react/issues/122#issuecomment-19888472" target="_blank" rel="noopener">#122 (comment)</a>..</p>
+<p>还有你可以选择将要立即读取的state 放到 可变对象中，尤其是在不使用它作为真正渲染源的时候。这跟 Mobx 很像。</p>
+<p>你也可以 选择更新整棵树，如果你知道 自己在做什么，这个API 叫 ReactDOM.flushSync(fn). 我们目前还没有把它写进文档，但我们肯定会在 16.x 版本周期的某个时候去这么做。请注意，它实际上会强制完成重新渲染，以便在调用中发生更新，所以您应该非常谨慎地使用它。这个方法不会破坏 <code>props</code> ，<code>state</code> 和 <code>refs</code> 之间内在一致性的保证。</p>
+<p>总而言之，<strong>React 模型并不总是会引出最简洁的代码，但是它在内部是一致的，并且确保提升 state 是安全的。</strong></p>
+<h3 id="使并发更新成为可能"><a href="#使并发更新成为可能" class="headerlink" title="使并发更新成为可能"></a>使并发更新成为可能</h3><p>从概念上讲,React 就像它的 每个组件都有一个单一的更新队列. 这就是我们为什么讨论这个问题: 是否我们立即更新state？ 因为我们都知道 我们的更新会按照队列的顺序. 然而这并不是同一种情况(哈哈).</p>
+<p>最近我们一直在讨论 ‘同步渲染’. 我得承认 对于这个 含义我们一直没有传达的很好,但是这才是 研究的本质: 你去研究一个在概念上很有前景的想法,但是你只有在上面花了很多时间后你才能真正理解它.</p>
+<p>我们定义 ‘同步渲染’是指.  <strong>根据调用在哪里, React能够给 setState 设置不同的优先级 : 像 事件处理, 网络响应, 动画 等等.</strong></p>
+<p>**<br>**</p>
+<p>例如，如果你正在输入消息，TextBox 组件中的setState() 调用需要立即被刷新， 但是如果此时你收到了新消息，最好的做法是 将新的 MesssgeBubble 延迟到某个固定的阈值后（如： 一秒钟）再进行渲染，这样就不会因为线程阻塞而导致输入被卡住。</p>
+<p>如果我们让某些更新 具有‘低优先级’，我们能把他们的更新拆分几毫秒的小块，这样用户就感知不到。</p>
+<p>我知道 像这也的性能优化可能不能让你感到信服。你可能会说，如果我们使用 Mobx 就不需要这些了。我们的更新追踪速度足够快，就不用重新渲染了。我不认为在所有情况下都是正确的。（不管 MoboX 多快，你人需要创建DOM 节点， 并且渲染新的视图）。即使这是对的，并且你觉得可以将对象包装到跟踪读取和写入特定的JavaScript 库中这是可以的，那么你就不会从这些优化中获益这么多。</p>
+<p><strong>但是异步渲染不仅仅是性能优化。我们认为，这是 React 组件模型可以实现的根本转变。</strong></p>
+<p>**<br>**</p>
+<p>比如，设想这么一个场景，你从一个页面跳到另一个。 通常我们在页面渲染完成前会显示一个加载中的标志。</p>
+<p>然鹅， 如果这个跳转非常快（可能 一秒左右），闪烁并且立即隐藏loading会降低用户体验。更糟糕的是，如果你有多个具有不同异步依赖的 （数据，代码， 图片）组件级别。则最终会生成一个加载loading 的级联，这些会一个地短暂闪烁。 这在视觉上既令人不快，又使应用在实践中变慢，因为所有 DOM 重排。它也是许多样板代码的来源</p>
+<p>当您使用渲染不同视图的简单 setState（） 时，我们可以”开始” 在后台将更新的视图处理 ，这难道不是很好吗？试想一下，在无需编写任何协调代码的情况下, 如果更新超过特定阈值（例如一秒），您可以选择显示加载中， 否则，当满足整个新子树的异步依赖关系时，React 执行无缝过渡。另外，当我们‘等待时’，更新前的页面保持 交互（例如，您可以选择要转换到的不同项目）,而且 react 强制规定如果时间过长，你必须使用加载中标志…</p>
+<p>事实证明，通过当前的 React 模型和生命周期的一些调整，我们实际上可以实现这个功能。 <a href="https://github.com/acdlite" target="_blank" rel="noopener">@acdlite</a> 一直在研究这个功能，并且很快他会发布一个 <a href="https://github.com/reactjs/rfcs" target="_blank" rel="noopener">RFC</a></p>
+<p>请注意，这只有在state不会立即刷新的情况下才有 实现上面的这个可能。 如果 state 立即更新的话，我们将无法开始在后台渲染视图的”新版本”，并且”旧版本”仍然可见且具有交互性。 它们之间独立状态将会发生冲突.</p>
+<p>我不想 因此夺走了 <a href="https://link.zhihu.com/?target=https%3A//github.com/acdlite">@acdlite</a> 的关注， 但我希望这听起来至少有那么一点兴奋。我知道这听起来很虚。 但我希望在接下来几个月里我们能说服你，到时候i你会感激React 模型的灵活性。并且据我所知，至少在一定程度上，这种灵活性是由于<em>不</em> 立即刷新状态更新才能实现的。</p>
 
-<ol>
-<li>当函数没有返回值时，默认返回undefined</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> f = fn();<br><span class="hljs-built_in">console</span>.log( f );   <span class="hljs-comment">// undefined</span><br></code></pre></td></tr></table></figure>
       
     </div>
     
@@ -474,9 +486,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/js/" <i class="fa fa-tag"></i> js</a>
+            <a href="/tags/JS/" <i class="fa fa-tag"></i> JS</a>
           
-            <a href="/tags/undefined/" <i class="fa fa-tag"></i> undefined</a>
+            <a href="/tags/React/" <i class="fa fa-tag"></i> React</a>
           
         </div>
       
@@ -489,8 +501,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/%E5%B7%A5%E4%BD%9C%E4%B8%AD%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87%E7%9A%84%E5%B7%A5%E5%85%B7/" rel="next" title="工作中提升效率的工具">
-                <i class="fa fa-chevron-left"></i> 工作中提升效率的工具
+              <a href="/chrome-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6/" rel="next" title="Chrome 浏览器插件">
+                <i class="fa fa-chevron-left"></i> Chrome 浏览器插件
               </a>
             
           </div>
@@ -498,10 +510,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/%E5%89%8D%E7%AB%AF%E5%BA%94%E8%AF%A5%E4%BA%86%E8%A7%A3%E7%9A%84%E5%8A%A0%E5%AF%86%E7%A7%8D%E7%B1%BB/" rel="prev" title="前端应该了解的加密种类">
-                前端应该了解的加密种类 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -669,7 +677,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-初识-null-amp-undefined"><span class="nav-number">1.</span> <span class="nav-text">1.初识 null &amp; undefined</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-深入理解-undefined-amp-null"><span class="nav-number"></span> <span class="nav-text">2. 深入理解 undefined &amp; null</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-用法"><span class="nav-number"></span> <span class="nav-text">3. 用法</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么-setState-是异步的-？"><span class="nav-number">1.</span> <span class="nav-text">为什么 setState 是异步的 ？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保证内部数据一致性"><span class="nav-number">2.</span> <span class="nav-text">保证内部数据一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使并发更新成为可能"><span class="nav-number">3.</span> <span class="nav-text">使并发更新成为可能</span></a></li></ol></div>
             
 
           </div>
@@ -835,9 +843,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/%E6%B5%85%E8%B0%88-undefined-null/';
-          this.page.identifier = '浅谈-undefined-null/';
-          this.page.title = '浅谈 undefined & null';
+          this.page.url = 'http://yoursite.com/%E4%B8%BA%E4%BB%80%E4%B9%88-setstate-%E6%98%AF%E5%BC%82%E6%AD%A5%E7%9A%84/';
+          this.page.identifier = '为什么-setstate-是异步的/';
+          this.page.title = '为什么 SetState 是异步的';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://mars.disqus.com/embed.js';
